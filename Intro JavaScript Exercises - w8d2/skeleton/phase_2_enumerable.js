@@ -12,14 +12,16 @@ const callback1 = function(el){
 
 // [1,2,3,4].myEach(callback1);
 
-const myMap = function(callback){
+Array.prototype.myMap = function(callback){
     let arr = [];
+        //closure: a function within a function has access to the outer functions scope: arr, callback
+        //the callback in myEach is different than the passed in callback
+    this.myEach(function(ele){
+        arr.push(callback(ele));
+    })
 
-    return function(newArr){
-        newArr.myEach(callback);
-        console.log(arr);
-    }
+    return arr;
 };
 
-const banana = myMap(callback1);
-banana([1,2,3,4]);
+// console.log([1,2,3,4].myMap(callback1));
+
